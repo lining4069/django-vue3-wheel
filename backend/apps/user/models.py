@@ -17,9 +17,11 @@ class User(AbstractBaseUser, BaseModel, SoftDeleteModel):
     username = models.CharField(verbose_name="用户名", max_length=150, unique=True, db_index=True, validators=[username_validator],
                                 error_messages={"unique": "该用户已存在"})
     display_name = models.CharField(verbose_name="显示名", max_length=150, null=True)
-    password = models.CharField(verbose_name="密码", max_length=16, null=True)  # 至少八位
+    password = models.CharField(verbose_name="密码", max_length=126, null=True)
     gender = models.IntegerField(verbose_name="性别", choices=GENDER_CHOICES, default=0, null=True, blank=True, help_text="性别")
     source = models.IntegerField(verbose_name="用户来源", choices=SOURCE_TYPE_CHOICES, default=0, null=False)
+    email = models.EmailField(verbose_name="邮箱", blank=True)
+    is_active = models.BooleanField(verbose_name="启用/禁用", null=False, default=True, help_text="True 标识启用 False表示禁用")
     last_deactivate = models.DateTimeField(verbose_name="最近用户被禁用时间", null=True)
     last_login = models.DateTimeField(verbose_name="最后登录时间", null=True)
     last_change_password = models.DateTimeField(verbose_name="最后修改密码时间", null=True)

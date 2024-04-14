@@ -8,7 +8,7 @@ from rest_framework import serializers
 from common.base_model import BaseModel
 
 
-class OpsBaseModelSerializer(serializers.ModelSerializer):
+class BaseModelSerializer(serializers.ModelSerializer):
     created_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     updated_at = serializers.DateTimeField(format="%Y-%m-%d %H:%M:%S", read_only=True)
     created_by = serializers.CharField(read_only=True)
