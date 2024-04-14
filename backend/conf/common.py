@@ -98,6 +98,11 @@ USE_I18N = True
 
 USE_TZ = True
 
+# 系统处理时间类型数据时的默认处理格式
+DATE_FORMAT = 'Y-m-d'
+DATETIME_FORMAT = 'Y-m-d H:i:s'
+TIME_FORMAT = 'H:i'
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
