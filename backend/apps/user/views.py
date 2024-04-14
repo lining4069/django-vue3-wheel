@@ -1,12 +1,18 @@
-from rest_framework.views import APIView
+from rest_framework.generics import GenericAPIView
+from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import status, permissions
+from rest_framework import status, permissions, viewsets
 from django.contrib.auth import authenticate
 
+from apps.user.models import User
 from common.response import SuccessResponse
+from service.usermanage.serializers import UserSerializer
+from common.pagination import PageNumberPagination
 
 
-class LoginView(APIView):
+class LoginView(GenericAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
 
     # 登陆接口
@@ -24,3 +30,24 @@ class LoginView(APIView):
                 data={"refresh": str(refresh), "token": str(refresh.access_token)}
             )
         return SuccessResponse(code=status.HTTP_401_UNAUTHORIZED, message="登录失败", data=[])
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    pagination_class = PageNumberPagination
+
+    def list(self, request, *args, **kwargs):
+        queryset = self.filter_queryset(self.get_queryset())
+
+        page = self.paginate_queryset(queryset)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(queryset, many=True)
+        return SuccessResponse(
+            code=status.HTTP_200_OK,
+            data=serializer.data,
+            message="用户列表获取成功"
+        )

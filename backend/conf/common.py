@@ -144,8 +144,7 @@ SIMPLE_JWT = {
 SPECTACULAR_SETTINGS = {
     'TITLE': 'Django Project API Document',
     'DESCRIPTION': '项目接口文档!',
-    'VERSION': '1.0.0',
-    'SERVE_INCLUDE_SCHEMA': False,
+    'VERSION': '1.0.0'
 }
 
 # 系统表名统一前缀，根据实际项目名称而设置
