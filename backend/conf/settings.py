@@ -1,3 +1,4 @@
+import datetime
 import os
 import environ
 
@@ -35,5 +36,43 @@ DATABASES = {
         "PASSWORD": BACKEND_DATABASE_PASSWORD,
         "HOST": BACKEND_DATABASE_HOST,
         "PORT": BACKEND_DATABASE_PORT
+    }
+}
+
+# 日志格式和存储配置
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True,
+    'formatters': {
+        "sample": {
+            "format": "%(asctime)s %(levelname)s %(message)s"
+        },
+        "detail": {
+            "format": "%(asctime)s %(levelname)s %(message)s Exception %(exc_info)s"
+        }
+    },
+    "filters": {},
+    "handlers": {
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "detail",
+        },
+        "default": {
+            "level": "INFO",
+            "class": "logging.handlers.RotatingFileHandler",
+            "formatter": "detail",
+            "filename": os.path.join(logger_dir, f"{datetime.datetime.now().strftime('%Y-%m-%d')}.log"),
+            "maxBytes": 1024 * 1024 * 10,
+            "backupCount": 5,
+            "encoding": "utf8",
+        }
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["default", "console"],
+            "level": "INFO",
+            "propagate": False,
+        }
     }
 }

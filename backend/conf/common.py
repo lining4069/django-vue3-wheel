@@ -114,8 +114,8 @@ REST_FRAMEWORK = {
 }
 # drf_spectacular
 SPECTACULAR_SETTINGS = {
-    'TITLE': 'Django Wheel API',
-    'DESCRIPTION': 'Ooi!',
+    'TITLE': 'Django Project API Document',
+    'DESCRIPTION': '项目接口文档!',
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
