@@ -2,7 +2,7 @@ import datetime
 import os
 import environ
 
-from backend.conf.common import *
+from conf.common import *
 
 # 设置系统日志存储路径
 logger_dir = os.path.join(BASE_DIR, 'loggers')

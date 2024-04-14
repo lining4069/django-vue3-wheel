@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',  # drf
     'drf_spectacular',  # api文档
+    'apps.user',  # 用户
+    'apps.group',  # 组
+    'apps.role',  # 角色
+    'apps.permission',  # 权限管理
 ]
 
 MIDDLEWARE = [
@@ -124,3 +128,6 @@ SPECTACULAR_SETTINGS = {
     'VERSION': '1.0.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
+
+# 系统表名统一前缀，根据实际项目名称而设置
+TABLE_PREFIX = 'backend_'

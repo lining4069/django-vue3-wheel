@@ -58,22 +58,6 @@ class SoftDeleteModel(models.Model):
             super().delete(using=using, **kwargs)
 
 
-class ActiveModel(models.Model):
-    """
-    继承即会具备激活的禁用功能
-    """
-    status_type = [
-        (False, "禁用"),
-        (True, "启用"),
-    ]
-    is_active = models.BooleanField(null=False, choices=status_type, default=True, verbose_name="是否激活")
-
-    class Meta:
-        abstract = True
-        verbose_name = "状态模型"
-        verbose_name_plural = verbose_name
-
-
 class BaseModel(models.Model):
     """系统建模基类"""
     created_by = models.CharField(max_length=64, null=True, default='admin', verbose_name="创建人")
