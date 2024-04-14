@@ -15,7 +15,7 @@ class Role(BaseModel, SoftDeleteModel):
 
     class Meta:
         db_table = settings.TABLE_PREFIX + "role"
-        verbose_name = "角色"
+        verbose_name = "角色表"
         verbose_name_plural = verbose_name
 
 
@@ -40,6 +40,7 @@ class RoleMenuPermission(models.Model):
     class Meta:
         db_table = settings.TABLE_PREFIX + "role_menu"
         verbose_name = "角色菜单权限表"
+        verbose_name_plural = verbose_name
 
 
 class RoleMenuButtonPermission(models.Model):
@@ -69,5 +70,5 @@ class RoleMenuButtonPermission(models.Model):
 
     class Meta:
         db_table = settings.TABLE_PREFIX + "role_menuButton"
-        verbose_name = "角色按钮权限表"
+        verbose_name = "角色接口权限表"
         verbose_name_plural = verbose_name

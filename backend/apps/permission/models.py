@@ -34,6 +34,8 @@ class Menu(BaseModel, SoftDeleteModel):
 
     class Meta:
         db_table = settings.TABLE_PREFIX + "system_menu"
+        verbose_name = "系统菜单表"
+        verbose_name_plural = verbose_name
 
 
 class MenuButton(BaseModel, SoftDeleteModel):
@@ -60,4 +62,5 @@ class MenuButton(BaseModel, SoftDeleteModel):
 
     class Meta:
         db_table = settings.TABLE_PREFIX + "system_menuButton"
-        ordering = ("-name",)
+        verbose_name = "系统接口表"
+        verbose_name_plural = verbose_name
