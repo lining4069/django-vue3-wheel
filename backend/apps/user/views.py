@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate
 
 from apps.user.models import User
 from common.response import SuccessResponse
-from service.usermanage.serializers import UserSerializer
+from service.auth_permission.serializers import UserSerializer
 from common.viewset import BaseModelViewSet
 
 

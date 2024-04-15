@@ -21,6 +21,7 @@ class User(AbstractBaseUser, BaseModel, SoftDeleteModel):
     gender = models.IntegerField(verbose_name="性别", choices=GENDER_CHOICES, default=0, null=True, blank=True, help_text="性别")
     source = models.IntegerField(verbose_name="用户来源", choices=SOURCE_TYPE_CHOICES, default=0, null=False)
     email = models.EmailField(verbose_name="邮箱", blank=True)
+    is_superuser = models.BooleanField(verbose_name="是否是超级管理员", default=False)
     is_active = models.BooleanField(verbose_name="启用/禁用", null=False, default=True, help_text="True 标识启用 False表示禁用")
     last_deactivate = models.DateTimeField(verbose_name="最近用户被禁用时间", null=True)
     last_login = models.DateTimeField(verbose_name="最后登录时间", null=True)
