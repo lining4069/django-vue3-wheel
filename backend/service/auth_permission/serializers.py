@@ -39,6 +39,13 @@ class RoleSerializer(BaseModelSerializer):
         depth = 1
 
 
+# 简单信息角色序列化
+class SampleRoleSerializer(BaseModelSerializer):
+    class Meta:
+        model = Role
+        fields = ['id', 'identifier', 'name']
+
+
 # 组序列化
 class GroupSerializer(BaseModelSerializer):
     class Meta:
@@ -48,9 +55,21 @@ class GroupSerializer(BaseModelSerializer):
         depth = 1
 
 
+# 简单用户组序列化
+class SampleGroupSerializer(BaseModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id', 'name', 'identifier']
+
+
 # 用户序列化
 class UserSerializer(BaseModelSerializer):
+    roles = SampleRoleSerializer(many=True, read_only=True)
+    groups = SampleGroupSerializer(many=True, read_only=True)
+
     class Meta:
         model = User
         fields = '__all__'
-        depth = 1
+        extra_kwargs = {
+            'password': {'write_only': True}
+        }
