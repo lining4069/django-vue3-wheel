@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import AbstractBaseUser
+from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.validators import UnicodeUsernameValidator
 from django.conf import settings
 
@@ -9,7 +9,7 @@ from common.base_model import BaseModel, SoftDeleteModel
 # 用户表
 
 
-class User(AbstractBaseUser, BaseModel, SoftDeleteModel):
+class User(AbstractUser, BaseModel, SoftDeleteModel):
     username_validator = UnicodeUsernameValidator()
     SOURCE_TYPE_CHOICES = [(0, "本地用户"), (1, "AD域账号")]
     GENDER_CHOICES = [(0, "未知"), (1, "男"), (2, "女")]
@@ -20,9 +20,6 @@ class User(AbstractBaseUser, BaseModel, SoftDeleteModel):
     password = models.CharField(verbose_name="密码", max_length=126, null=True)
     gender = models.IntegerField(verbose_name="性别", choices=GENDER_CHOICES, default=0, null=True, blank=True, help_text="性别")
     source = models.IntegerField(verbose_name="用户来源", choices=SOURCE_TYPE_CHOICES, default=0, null=False)
-    email = models.EmailField(verbose_name="邮箱", blank=True)
-    is_superuser = models.BooleanField(verbose_name="是否是超级管理员", default=False)
-    is_active = models.BooleanField(verbose_name="启用/禁用", null=False, default=True, help_text="True 标识启用 False表示禁用")
     last_deactivate = models.DateTimeField(verbose_name="最近用户被禁用时间", null=True)
     last_login = models.DateTimeField(verbose_name="最后登录时间", null=True)
     last_change_password = models.DateTimeField(verbose_name="最后修改密码时间", null=True)

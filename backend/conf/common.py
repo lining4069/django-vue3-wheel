@@ -125,6 +125,10 @@ REST_FRAMEWORK = {
     # drf token
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',  # jwt认证
+    ),
+    # 权限
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     )
 }
 

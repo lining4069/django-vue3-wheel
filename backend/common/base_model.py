@@ -13,19 +13,6 @@ class SoftDeleteManager(models.Manager):
     def get_queryset(self):
         return super().get_queryset().filter(is_deleted=False)
 
-    def all(self):
-        """
-        返回包括被软删除的所有对象
-        """
-        return super().get_queryset()
-
-    def only_deleted(self):
-        """
-        获取被软删除的数据
-        :return:
-        """
-        return super().get_queryset().filter(is_deleted=True)
-
 
 class SoftDeleteModel(models.Model):
     """

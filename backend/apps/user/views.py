@@ -1,6 +1,6 @@
 from rest_framework.generics import GenericAPIView
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework import status, permissions, viewsets
+from rest_framework import status, permissions
 from django.contrib.auth import authenticate
 
 from apps.user.models import User

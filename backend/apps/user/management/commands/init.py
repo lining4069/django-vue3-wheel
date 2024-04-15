@@ -49,7 +49,7 @@ class Command(BaseCommand):
         # 创建系统初始普通用户
         sys_super_user = User.objects.filter(is_superuser=True).first()
         if sys_super_user is None:
-            sys_super_user = User.objects.create(
+            sys_super_user = User.objects.create_superuser(
                 username="superadmin",
                 display_name="超级管理员",
                 password=make_password("Admin123456"),

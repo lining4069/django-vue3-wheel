@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from apps.role.models import Role
+from common.viewset import BaseModelViewSet
+from service.auth_permission.serializers import RoleSerializer
 
-# Create your views here.
+
+class RoleViewSet(BaseModelViewSet):
+    queryset = Role.objects.all()
+    serializer_class = RoleSerializer
