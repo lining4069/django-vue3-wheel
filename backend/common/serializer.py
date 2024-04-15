@@ -16,13 +16,13 @@ class BaseModelSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         # 处理创建人和更新人
-        validated_data['founder'] = self.context.get('request').user.username
-        validated_data['updater'] = self.context.get('request').user.username
+        validated_data['created_by'] = self.context.get('request').user.username
+        validated_data['updated_by'] = self.context.get('request').user.username
         return super().create(validated_data)
 
     def update(self, instance, validated_data):
         # 处理组更新人
-        validated_data['updater'] = self.context.get('request').user.username
+        validated_data['updated_by'] = self.context.get('request').user.username
         return super().update(instance, validated_data)
 
     class Meta:

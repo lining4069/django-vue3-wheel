@@ -9,6 +9,7 @@ from service.auth_permission.serializers import UserSerializer
 from common.viewset import BaseModelViewSet
 
 
+# 登陆视图
 class LoginView(GenericAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -31,6 +32,7 @@ class LoginView(GenericAPIView):
         return SuccessResponse(code=status.HTTP_401_UNAUTHORIZED, message="登录失败", data=[])
 
 
+# 用户基础操作视图
 class UserViewSet(BaseModelViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer

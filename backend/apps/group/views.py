@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from apps.group.models import Group
+from common.viewset import BaseModelViewSet
+from service.auth_permission.serializers import GroupSerializer
 
-# Create your views here.
+
+# 组基础操作视图
+class GroupViewSet(BaseModelViewSet):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
