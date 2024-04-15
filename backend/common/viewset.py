@@ -18,9 +18,19 @@ from common.response import SuccessResponse, ErrorResponse
 from common.pagination import BasePagination
 
 
-class BaseModelViewSet(CreateModelMixin, RetrieveModelMixin, UpdateModelMixin,
-                       DestroyModelMixin, ListModelMixin, GenericViewSet):
+class BaseModelViewSet(
+    CreateModelMixin,
+    RetrieveModelMixin,
+    UpdateModelMixin,
+    DestroyModelMixin,
+    ListModelMixin,
+    GenericViewSet
+):
     pagination_class = BasePagination
+
+    def get_queryset(self):
+        queryset = super().get_queryset().order_by('id')
+        return queryset
 
     # 实例列表
     def list(self, request, *args, **kwargs):
