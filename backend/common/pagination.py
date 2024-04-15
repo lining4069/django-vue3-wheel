@@ -5,15 +5,16 @@
 # @Author : lining
 # @Remark : 自定义分页类
 from collections import OrderedDict
-
 from rest_framework.pagination import PageNumberPagination
-from rest_framework.response import Response
+from rest_framework.status import HTTP_200_OK, HTTP_201_CREATED, HTTP_204_NO_CONTENT
+
+from common.response import SuccessResponse
 
 PAGINATION_DEFAULT_LIMIT = 20
 GET_ALL_DATA_KEY = "all"
 
 
-class OpsBasePagination(PageNumberPagination):
+class BasePagination(PageNumberPagination):
     """
     自定义通用分页处器类
     """
@@ -59,17 +60,17 @@ class OpsBasePagination(PageNumberPagination):
         return self.page_size
 
     def get_paginated_response(self, data):
-        code = 200
         message = "获取数据成功"
         data = data
         page = self.page.number
         limit = int(self.get_page_size(self.request))
         total = self.page.paginator.count if self.page else 0
-        return Response(data=OrderedDict([
-            ("code", code),
-            ("message", message),
-            ("data", data),
-            ("page", page),
-            ("limit", limit),
-            ("total", total),
-        ]))
+        return SuccessResponse(
+            code=HTTP_200_OK,
+            message=message,
+            data=OrderedDict([
+                ("page_data", data),
+                ("page", page),
+                ("limit", limit),
+                ("total", total),
+            ]))

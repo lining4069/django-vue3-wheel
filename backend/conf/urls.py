@@ -28,7 +28,7 @@ api_v1_patterns = [
     path('auth/', include('apps.user.urls')),  # 认证、权限功能模块
 ]
 
-cur_sys_version_prefix = 'api/v1'
+cur_sys_version_prefix = 'api/v1/'
 urlpatterns = [
     path(cur_sys_version_prefix, include(api_v1_patterns)),
 ]

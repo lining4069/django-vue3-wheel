@@ -7,30 +7,24 @@
 from django.db import models
 
 
-class SoftDeleteQuerySet(models.QuerySet):
-    pass
-
-
 class SoftDeleteManager(models.Manager):
-    """支持软删除"""
-
-    def __init__(self, *args, **kwargs):
-        self.__add_is_del_filter = False
-        super(SoftDeleteManager, self).__init__(*args, **kwargs)
-
-    def filter(self, *args, **kwargs):
-        # 考虑是否主动传入is_deleted
-        if not kwargs.get('is_deleted') is None:
-            self.__add_is_del_filter = True
-        return super(SoftDeleteManager, self).filter(*args, **kwargs)
+    """支持软删除的管理器"""
 
     def get_queryset(self):
-        if self.__add_is_del_filter:
-            return SoftDeleteQuerySet(self.model, using=self._db).exclude(is_deleted=False)
-        return SoftDeleteQuerySet(self.model).exclude(is_deleted=True)
+        return super().get_queryset().filter(is_deleted=False)
 
-    def get_by_natural_key(self, name):
-        return SoftDeleteQuerySet(self.model).get(username=name)
+    def all(self):
+        """
+        返回包括被软删除的所有对象
+        """
+        return super().get_queryset()
+
+    def only_deleted(self):
+        """
+        获取被软删除的数据
+        :return:
+        """
+        return super().get_queryset().filter(is_deleted=True)
 
 
 class SoftDeleteModel(models.Model):
@@ -38,8 +32,7 @@ class SoftDeleteModel(models.Model):
     软删除模型
     一旦继承,就将开启软删除
     """
-    is_deleted = models.BooleanField(null=False, default=False, db_index=True, verbose_name="是否被软删除",
-                                     help_text='是否被软删除')
+    is_deleted = models.BooleanField(verbose_name="是否被软删除", default=False, help_text='是否被软删除')
     objects = SoftDeleteManager()
 
     class Meta:
@@ -56,6 +49,12 @@ class SoftDeleteModel(models.Model):
             self.save(using=using)
         else:
             super().delete(using=using, **kwargs)
+
+    def hard_delete(self, using=None, **kwargs):
+        """
+        执行硬删除
+        """
+        super().delete(using=using, **kwargs)
 
 
 class BaseModel(models.Model):
