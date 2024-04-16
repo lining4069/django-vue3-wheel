@@ -64,7 +64,7 @@ class GroupSerializer(BaseModelSerializer):
 class UserSerializer(BaseModelSerializer):
     roles = SampleRoleSerializer(many=True, read_only=True)  # 用户具有哪些角色
     groups = SampleGroupSerializer(many=True, read_only=True)  # 用户处于哪些组
-    roles_all = SerializerMethodField(method_name="get_roles_by_groups_roles")  # 用户因为组而获得的角色
+    roles_all = SerializerMethodField(method_name="get_roles_by_groups_roles", read_only=True)  # 用户因为组而获得的角色
 
     def validate(self, attrs):
         roles = attrs.get("roles", [])

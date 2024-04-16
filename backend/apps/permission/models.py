@@ -42,7 +42,7 @@ class MenuButton(BaseModel, SoftDeleteModel):
     menu = models.ForeignKey(
         to="Menu",
         on_delete=models.CASCADE,
-        related_name="menuPermission",
+        related_name="buttons",
         db_column="menu_id",
         db_constraint=False,
         verbose_name="关联菜单",

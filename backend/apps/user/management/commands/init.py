@@ -51,7 +51,7 @@ class Command(BaseCommand):
             sys_super_user = User.objects.create_superuser(
                 username="superadmin",
                 display_name="超级管理员",
-                password=make_password("Admin123456"),
+                password="Admin123456",
                 email="admin@localhost"
             )
             sys_super_user.save()
