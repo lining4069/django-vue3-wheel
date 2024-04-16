@@ -42,8 +42,8 @@ class Command(BaseCommand):
 
         # 将默认角色和默认组的uuid存储到common设置文件中
         with open(join(BASE_DIR, 'conf', 'common.py'), 'a', encoding='utf-8') as f:
-            f.write(f"DEFAULT_GROUP_ID = {default_group_ins.id}\n")
-            f.write(f"DEFAULT_ROLE_ID = {default_role_ins.id}\n")
+            f.write(f"DEFAULT_GROUP_ID = '{default_group_ins.id}'\n")
+            f.write(f"DEFAULT_ROLE_ID = '{default_role_ins.id}'\n")
 
         # 创建系统初始普通用户
         sys_super_user = User.objects.filter(is_superuser=True).first()
