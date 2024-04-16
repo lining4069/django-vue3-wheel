@@ -5,7 +5,7 @@
 # @Author : lining
 # @Remark : 基础序列化类
 from rest_framework import serializers
-from common.base_model import BaseModel
+from common.model import BaseModel
 
 
 class BaseModelSerializer(serializers.ModelSerializer):

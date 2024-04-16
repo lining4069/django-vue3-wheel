@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 
-from common.base_model import BaseModel, SoftDeleteModel
+from common.model import BaseModel, SoftDeleteModel
 
 
 class Menu(BaseModel, SoftDeleteModel):
@@ -16,7 +16,6 @@ class Menu(BaseModel, SoftDeleteModel):
         verbose_name="上级菜单",
         help_text="上级菜单",
     )
-    identifier = models.CharField(verbose_name="标识", unique=True, db_index=True, max_length=32, help_text="菜单唯一标识用于权限校验和授权")
     name = models.CharField(verbose_name="菜单名称", null=True, max_length=64, help_text="菜单名称")
     icon = models.CharField(verbose_name="菜单图标", null=True, max_length=64, help_text="菜单图标")
     sort = models.IntegerField(verbose_name="显示排序", default=1, help_text="显示排序")
@@ -49,7 +48,6 @@ class MenuButton(BaseModel, SoftDeleteModel):
         verbose_name="关联菜单",
         help_text="关联菜单",
     )
-    identifier = models.CharField(verbose_name="权限值", unique=True, db_index=True, max_length=32, help_text="接口唯一标识用于权限校验和授权")
     name = models.CharField(verbose_name="按钮名称", max_length=64, help_text="名称")
     api = models.CharField(verbose_name="接口地址", max_length=512, help_text="按钮绑定的接口地址")
     METHOD_CHOICES = [

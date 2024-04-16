@@ -1,11 +1,10 @@
 from django.db import models
 from django.conf import settings
 
-from common.base_model import BaseModel, SoftDeleteModel
+from common.model import BaseModel, SoftDeleteModel
 
 
 class Role(BaseModel, SoftDeleteModel):
-    identifier = models.CharField(verbose_name="角色唯一标识符", null=False, unique=True, db_index=True, max_length=32)
     name = models.CharField(verbose_name="角色名", null=True, max_length=32)
     description = models.TextField(null=True, blank=True, verbose_name="描述")
     is_active = models.BooleanField(verbose_name="启用/禁用", null=False, default=True, help_text="True 标识启用 False表示禁用")

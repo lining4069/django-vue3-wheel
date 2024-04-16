@@ -28,6 +28,7 @@ api_v1_patterns = [
     path('auth/', include('apps.role.urls')),  # 认证、权限功能模块-角色
     path('auth/', include('apps.group.urls')),  # 认证、权限功能模块-用户组
     path('auth/', include('apps.user.urls')),  # 认证、权限功能模块-用户
+    path('auth/', include('apps.permission.urls')),  # 认证、权限功能模块-权限管理中心
 ]
 
 cur_sys_version_prefix = 'api/v1/'

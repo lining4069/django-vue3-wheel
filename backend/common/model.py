@@ -4,6 +4,8 @@
 # @Create At : 2024/4/14 1:02 PM
 # @Author : lining
 # @Remark : 基础类
+import uuid
+
 from django.db import models
 
 
@@ -46,8 +48,9 @@ class SoftDeleteModel(models.Model):
 
 class BaseModel(models.Model):
     """系统建模基类"""
-    created_by = models.CharField(max_length=64, null=True, default='admin', verbose_name="创建人")
-    updated_by = models.CharField(max_length=64, null=True, default='admin', verbose_name="更新人")
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, db_index=True, verbose_name="无序唯一标识")
+    created_by = models.CharField(null=True, max_length=62, verbose_name="创建人")
+    updated_by = models.CharField(null=True, max_length=62, verbose_name="更新人")
     created_at = models.DateTimeField(auto_now_add=True, verbose_name="创建时间")
     updated_at = models.DateTimeField(auto_now=True, verbose_name="更新时间")
 
@@ -55,3 +58,4 @@ class BaseModel(models.Model):
         abstract = True
         verbose_name = '基础模型'
         verbose_name_plural = verbose_name
+        ordering = ['-created_at']
