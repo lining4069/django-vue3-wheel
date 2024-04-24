@@ -1,0 +1,48 @@
+version: "1"
+services:
+  django-backend:
+    build:
+      context: .
+      dockerfile: ./docker_compose_deploy/django/Dockerfile
+    container_name: django-backend
+    working_dir: /backend
+    depends_on:
+      - backend-mysql
+    environment:
+      PYTHONUNBUFFERED:
+      APP_ENV: dev
+    volumes:
+      - ./backend:/backend
+      - ./logs/log:/var/log
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
+    restart: always
+    networks:
+      network:
+        ipv4_address: 177.10.0.12
+
+  backend-mysql:
+    image: mysql:8.0
+    container_name: mysql
+    privileged: true
+    restart: always
+    ports:
+      - "13306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: "Mysql12345679"
+      MYSQL_DATABASE: "django-vue3-backend"
+      TZ: Asia/Shanghai
+    command:
+      --wait_timeout=31536000
+      --interactive_timeout=31536000
+      --max_connections=1000
+      --default-authentication-plugin=mysql_native_password
+    volumes:
+      - "./docker_compose_deploy/mysql/data:/var/lib/mysql"
+      - "./docker_compose_deploy/mysql/conf.d:/etc/mysql/conf.d"
+      - "./docker_compose_deploy/mysql/logs:/logs"
+    networks:
+      network:
+        ipv4_address: 177.10.0.13
